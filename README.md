@@ -13,5 +13,7 @@ Ce depot a été crée pour la mise en place d'un environement de developpement 
 Require [Docker](https://www.docker.com/):
 
 ```bash
+mkdir mysql
+mkdir src
 docker-compose build && docker-compose up -d
 ```
