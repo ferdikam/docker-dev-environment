@@ -3,7 +3,7 @@
 
 ---
 
-Ce depot a été crée pour la mise en place d'un environement de developpement pour **wordplate**
+Ce depot a été crée pour la mise en place d'un environement de developpement pour **[wordplate](https://github.com/wordplate/wordplate)**
 
 
 ## Installation & Usage
