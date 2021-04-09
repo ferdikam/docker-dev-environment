@@ -1,0 +1,50 @@
+version: '3'
+
+networks: 
+    wordplate:
+
+services:
+    nginx:
+        image: nginx:stable-alpine
+        container_name: wordplate-nginx
+        ports:
+            - "8088:80"
+        volumes: 
+            - ./src:/var/www/html
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on: 
+            - php
+            - mysql
+        networks:
+            - wordplate
+
+    mysql:
+        image: mysql:5.7.33
+        container_name: wordplate-mysql
+        restart: unless-stopped
+        tty: true
+        ports: 
+            - "4306:3306"
+        volumes: 
+            - ./mysql:/var/lib/mysql
+        environment: 
+            MYSQL_DATABASE: wordplate
+            MYSQL_USER: wordplate
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: secret
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - wordplate
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: wordplate-php
+        volumes: 
+            - ./src:/var/www/html
+        ports:
+            - "9090:9000"
+        networks:
+            - wordplate
